@@ -71,7 +71,12 @@ main {
   width: 86%; height: 86%; background: transparent;
   border: 5px solid rgba(0, 0, 0, 0.28);
 }
-.piece { position: relative; z-index: 1; }
+.piece {
+  position: relative; z-index: 1;
+  /* iOS가 ♟를 컬러 이모지로 그리지 않도록 텍스트 표시 강제 */
+  font-family: "Apple Symbols", "Segoe UI Symbol", "DejaVu Sans", "Noto Sans Symbols 2", serif;
+  font-variant-emoji: text;
+}
 .piece.w { color: #fff; text-shadow: 0 0 2px #000, 0 0 1px #000, 0 0 1px #000; }
 .piece.b { color: #111; text-shadow: 0 0 1px #fff; }
 .coord {
