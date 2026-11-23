@@ -187,7 +187,14 @@
       num++;
     }
     const curEl = el.querySelector('.cur');
-    if (curEl) curEl.scrollIntoView({ block: 'nearest' });
+    // 페이지 전체가 아니라 목록 상자 안에서만 스크롤
+    if (curEl) {
+      const top = curEl.offsetTop;
+      if (top < el.scrollTop) el.scrollTop = top;
+      else if (top + curEl.offsetHeight > el.scrollTop + el.clientHeight) {
+        el.scrollTop = top + curEl.offsetHeight - el.clientHeight;
+      }
+    }
   }
 
   /* ---------------- 1단계: 기보 불러오기 ---------------- */
