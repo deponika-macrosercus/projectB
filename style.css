@@ -136,3 +136,7 @@ button.primary:hover { filter: brightness(1.08); }
 .move-list .mv.cur { background: var(--accent); color: #fff; }
 .move-list .mv.engine { font-weight: 700; }
 .move-list .empty { grid-column: 1 / -1; opacity: 0.6; }
+
+details { margin: 14px 0 4px; }
+summary { cursor: pointer; font-size: 0.9rem; opacity: 0.8; }
+details textarea, details input[type=text] { margin-top: 6px; }

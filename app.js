@@ -298,6 +298,7 @@
   }
 
   function onSquareClick(sq) {
+    if (state.mode === 'setup') return onSetupClick(sq);
     if (state.mode !== 'play' || state.thinking) return;
     const g = state.game;
     if (g.turn() === state.engineColor) return;
@@ -316,6 +317,23 @@
     } else {
       state.selected = null;
     }
+    renderBoard();
+  }
+
+  // 시작 전: 보드에서 양쪽 수를 직접 두어 기보를 만든다
+  function onSetupClick(sq) {
+    const g = state.view;
+    if (state.selected) {
+      const legal = g.moves({ square: state.selected, verbose: true }).find((m) => m.to === sq);
+      if (legal) {
+        const mv = g.move({ from: state.selected, to: sq, promotion: $('promo').value });
+        state.baseMoves = state.baseMoves.slice(0, state.startPly).concat(mv.san);
+        setStartPly(state.startPly + 1);
+        return;
+      }
+    }
+    const piece = g.get(sq);
+    state.selected = piece && piece.color === g.turn() && state.selected !== sq ? sq : null;
     renderBoard();
   }
 
@@ -395,6 +413,14 @@
   });
   $('loadBtn').addEventListener('click', () => {
     $('pgn').dataset.loaded = $('pgn').value + '|' + $('fen').value;
+  });
+  $('clearBtn').addEventListener('click', () => {
+    state.baseStartFen = START_FEN;
+    state.baseMoves = [];
+    $('pgn').value = ''; $('fen').value = '';
+    $('pgn').dataset.loaded = '|';
+    $('loadError').textContent = '';
+    setStartPly(0);
   });
   document.querySelectorAll('[data-nav]').forEach((b) =>
     b.addEventListener('click', () => {

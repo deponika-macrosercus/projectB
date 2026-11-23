@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>체스 이기기 연습</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
   <header>
     <h1>체스 이기기 연습</h1>
-    <p class="sub">기보를 입력하고 이겨야 하는 색을 고르세요. 그 색은 엔진이, 반대 색은 내가 둡니다.</p>
+    <p class="sub">보드에서 수를 두어 국면을 만들고 이겨야 하는 색을 고르세요. 그 색은 엔진이, 반대 색은 내가 둡니다.</p>
   </header>
 
   <main>
@@ -25,31 +25,32 @@
     <section class="panel">
       <!-- 1단계: 기보 입력 -->
       <div id="setup">
-        <h2>1. 기보 입력</h2>
-        <textarea id="pgn" rows="7" placeholder="예) 1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4&#10;PGN 전체를 붙여넣어도 됩니다. 비워두면 초기 배치에서 시작합니다."></textarea>
-        <div class="row">
-          <button id="loadBtn">기보 불러오기</button>
-          <input id="fen" type="text" placeholder="(선택) FEN으로 시작 국면 지정">
-        </div>
-        <div id="loadError" class="error"></div>
-
-        <h2>2. 시작 지점 선택</h2>
-        <p class="hint">수를 클릭하면 그 수 직후 국면에서 시작합니다. 기본값은 기보의 마지막 수입니다.</p>
+        <h2>1. 시작 국면 만들기</h2>
+        <p class="hint">보드에서 기물을 눌러 백·흑 수를 차례로 두세요. 아래 수 목록을 누르면 그 수로 돌아가고, 거기서 다른 수를 두면 이후 수는 바뀝니다. 대국은 지금 보드에 보이는 국면에서 시작합니다.</p>
         <div class="row nav">
           <button data-nav="first">⏮</button>
           <button data-nav="prev">◀</button>
           <button data-nav="next">▶</button>
           <button data-nav="last">⏭</button>
+          <button id="clearBtn">전부 지우기</button>
         </div>
         <ol id="moveList" class="move-list"></ol>
 
-        <h2>3. 이겨야 하는 색</h2>
+        <details id="textInput">
+          <summary>텍스트로 붙여넣기 (PGN·FEN, 선택)</summary>
+          <textarea id="pgn" rows="5" placeholder="예) 1. e4 e5 2. Nf3 Nc6 3. Bc4&#10;다른 곳에서 복사한 PGN을 붙여넣을 때만 쓰면 됩니다."></textarea>
+          <input id="fen" type="text" placeholder="(선택) FEN으로 시작 국면 지정">
+          <div class="row"><button id="loadBtn">불러오기</button></div>
+          <div id="loadError" class="error"></div>
+        </details>
+
+        <h2>2. 이겨야 하는 색</h2>
         <div class="row">
           <label><input type="radio" name="winner" value="w" checked> 백 (엔진이 백)</label>
           <label><input type="radio" name="winner" value="b"> 흑 (엔진이 흑)</label>
         </div>
 
-        <h2>4. 엔진 설정</h2>
+        <h2>3. 엔진 설정</h2>
         <div class="row">
           <label>생각 시간
             <select id="movetime">
@@ -67,11 +68,7 @@
         <button id="startBtn" class="primary">시작</button>
       </div>
 
-      <!-- 플레이 단계 -->
-      <div id="play" hidden>
-        <h2>대국 중</h2>
-        <p id="roles" class="hint"></p>
-        <div class="row">
+        <div class="row" id="promoRow">
           <label>승급 기물
             <select id="promo">
               <option value="q">퀸</option>
@@ -81,6 +78,11 @@
             </select>
           </label>
         </div>
+
+      <!-- 플레이 단계 -->
+      <div id="play" hidden>
+        <h2>대국 중</h2>
+        <p id="roles" class="hint"></p>
         <div class="row">
           <button id="undoBtn">한 수 무르기</button>
           <button id="restartBtn">시작 국면부터 다시</button>
@@ -97,7 +99,7 @@
   </main>
 
   <script src="vendor/chess.js"></script>
-  <script src="pieces.js?v=4"></script>
-  <script src="app.js?v=4"></script>
+  <script src="pieces.js?v=5"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
