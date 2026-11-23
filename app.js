@@ -5,7 +5,6 @@
 (function () {
   'use strict';
 
-  const GLYPH = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟\uFE0E' };
   const FILES = 'abcdefgh';
   const START_FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
   const $ = (id) => document.getElementById(id);
@@ -121,7 +120,7 @@
         if (p) {
           const s = document.createElement('span');
           s.className = 'piece ' + p.color;
-          s.textContent = GLYPH[p.type];
+          s.innerHTML = PIECE_SVG[p.color + p.type];
           div.appendChild(s);
         }
         if (r === 7) addCoord(div, 'file', FILES[file]);

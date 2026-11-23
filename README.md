@@ -38,5 +38,6 @@ python3 -m http.server 8000
 | 파일 | 설명 |
 |---|---|
 | `index.html`, `style.css`, `app.js` | 화면과 동작 |
+| `pieces.js` | 기물 SVG 그림 (직접 그린 도형) |
 | `vendor/chess.js` | 규칙/기보 처리 ([chess.js](https://github.com/jhlywa/chess.js) 0.10.3, BSD-2) |
 | `vendor/stockfish.js` | 엔진 ([stockfish.js](https://github.com/nmrugg/stockfish.js) 10.0.2, GPLv3) |
